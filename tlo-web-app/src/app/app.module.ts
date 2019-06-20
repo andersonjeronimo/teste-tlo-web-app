@@ -1,4 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { HttpClientModule } from '@angular/common/http';
+
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgModule, Component } from '@angular/core';
 
@@ -18,8 +20,11 @@ import { environment } from '../environments/environment';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 
 import { AuthService } from './services/auth/auth.service';
+import { CoinlibService } from './services/api/coinlib.service';
+
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { CoinComponent } from './components/coin/coin.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +34,8 @@ import { FooterComponent } from './components/footer/footer.component';
     RegisterComponent,
     AlertComponent,
     NavbarComponent,
-    FooterComponent
+    FooterComponent,
+    CoinComponent
   ],
   imports: [
     BrowserModule,
@@ -37,12 +43,14 @@ import { FooterComponent } from './components/footer/footer.component';
     FormsModule,
     ReactiveFormsModule,
     AngularFireModule.initializeApp(environment.firebase),
-    AngularFireAuthModule
+    AngularFireAuthModule,
+    HttpClientModule
   ],
   providers: [
     GuardService,
     AlertService,
-    AuthService
+    AuthService,
+    CoinlibService
   ],
   bootstrap: [AppComponent]
 })

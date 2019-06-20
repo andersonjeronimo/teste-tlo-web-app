@@ -28,15 +28,12 @@ export class RegisterComponent implements OnInit {
     this.reveal = !(this.reveal);
   }
 
-  // convenience getter for easy access to form fields
   get f() {
     return this.registerForm.controls;
   }
 
   onSubmit() {
     this.submitted = true;
-
-    // stop here if form is invalid
     if (this.registerForm.invalid) {
       return;
     }
@@ -48,11 +45,12 @@ export class RegisterComponent implements OnInit {
         this.alertService.success('Cadastro efetuado com sucesso!', true);
         this.loading = false;
         this.registerForm.reset();
+        this.loading = false;
       })
       .catch(err => {
         this.alertService.error(err.message);
-        this.loading = false;
         this.registerForm.reset();
+        this.loading = false;
       });
 
 

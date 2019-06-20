@@ -1,0 +1,45 @@
+API utilizada https://coinlib.io/
+Informações em https://coinlib.io/apidocs
+
+
+<form [formGroup]="form">
+  <div class="form-row">
+    <div class="col-sm-6">
+      <select class="form-control" formControlName="symbol">
+        <option disabled [selected]="true">Resultados em:</option>
+        <option *ngFor="let s of symbols" [ngValue]="s.symbol">{{s.name}}</option>
+      </select>
+    </div>
+    <div class="col-sm-3">
+      <button class="btn btn-primary btn-block" (click)="onSubmit()">
+        Buscar</button>
+    </div>
+    <!-- <div class="col-sm-3">
+      <button class="btn btn-danger btn-block" (click)="clearForm()">
+        Limpar filtro</button>
+    </div> -->
+  </div>
+</form>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Símbolo</th>
+      <th scope="col">Nome</th>
+      <th scope="col">Valor</th>
+    </tr>
+  </thead>
+  <tbody>
+    <div *ngIf="coins.length > 0">
+      <tr *ngFor="let coin of coins">
+        <td>{{coin.rank}}</td>
+        <td>{{coin.symbol}}</td>
+        <td>{{coin.name}}</td>
+        <td>{{coin.price}}</td>
+        <!-- <td class="col-1 text-center">
+              <a class="btn btn-primary" [routerLink]="['/coin-detail', coin.id]">Detalhes</a>
+            </td> -->
+      </tr>
+    </div>
+  </tbody>
+</table>

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
+import { AlertService } from '../../services/alert/alert.service';
+import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from '../../services/auth/auth.service';
 
 @Component({
@@ -12,10 +14,14 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   loading = false;
   submitted = false;
+  returnUrl: string;
 
   constructor(
     private formBuilder: FormBuilder,
-    private authenticationService: AuthService
+    private authenticationService: AuthService,
+    private alertService: AlertService,
+    private route: ActivatedRoute,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -28,19 +34,27 @@ export class LoginComponent implements OnInit {
     this.authenticationService.logout();
   }
 
-  // convenience getter for easy access to form fields
   get f() { return this.loginForm.controls; }
 
   onSubmit() {
     this.submitted = true;
-
-    // stop here if form is invalid
     if (this.loginForm.invalid) {
       return;
     }
 
     this.loading = true;
-    this.authenticationService.login(this.f.username.value, this.f.password.value);
+    this.authenticationService.login(this.f.username.value, this.f.password.value)
+    .then(data => {
+      localStorage.setItem('currentUser', JSON.stringify(data));
+      this.alertService.success(`Olá ${data.user.email}!`, true);
+      this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+      this.router.navigate([this.returnUrl]);
+      this.loading = false;
+    })
+    .catch(err => {
+      this.alertService.error(err.message);
+      this.loading = false;
+    });
 
   }
 }
