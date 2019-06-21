@@ -25,6 +25,7 @@ import { CoinlibService } from './services/api/coinlib.service';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { CoinComponent } from './components/coin/coin.component';
+import { CoinDetailComponent } from './components/coin/coin-detail/coin-detail.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { CoinComponent } from './components/coin/coin.component';
     AlertComponent,
     NavbarComponent,
     FooterComponent,
-    CoinComponent
+    CoinComponent,
+    CoinDetailComponent
   ],
   imports: [
     BrowserModule,

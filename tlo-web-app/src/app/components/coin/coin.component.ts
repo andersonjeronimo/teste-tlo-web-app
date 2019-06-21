@@ -27,6 +27,9 @@ export class CoinComponent implements OnInit {
   submitted: boolean;
   filter = '';
 
+  // paginação
+  // TO_DO
+
   constructor(
     private coinlibService: CoinlibService,
     private alertService: AlertService,
